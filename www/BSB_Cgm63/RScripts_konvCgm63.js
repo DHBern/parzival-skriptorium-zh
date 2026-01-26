@@ -115,6 +115,32 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("submitBlattImg").addEventListener("click", function() {
         checkSeitenEingabe();
     });
+
+	document.getElementById("vers").addEventListener("mouseover", function () {
+		Tip('Vers finden');
+	});
+
+	document.getElementById("vers").addEventListener("mouseout", function () {
+		UnTip();
+	});
+
+	document.getElementById("versInput").addEventListener("keypress", function (event) {
+		return submitenter(this, event);
+	});
+
+	document.getElementById("submitVersImg").addEventListener("mouseover", function () {
+		Tip('Vers finden');
+	});
+
+	document.getElementById("submitVersImg").addEventListener("mouseout", function () {
+		UnTip();
+	});
+
+	document.getElementById("submitVersImg").addEventListener("click", function () {
+		checkVersEingabe();
+	});
+
+
 	document.getElementById("handschrift").addEventListener("mouseover", function() {
         Tip('Handschrift wählen');
     });
@@ -551,6 +577,10 @@ function submitenter(myfield, e) {
             checkSeitenEingabe();
             if (e.preventDefault) e.preventDefault(); 
             return false;
+        } else if (myfield.name == "Vers") {
+            checkVersEingabe();
+            if (e.preventDefault) e.preventDefault(); 
+            return false;
         }
     }
 
@@ -747,6 +777,110 @@ function checkSeitenEingabe() {
 			}
 		}
 		document.naviHSR.Blatt.value = "";
+	}
+
+	async function checkVersEingabe() {
+		// Hole den Wert aus dem Eingabefeld
+		const versInput = parseFloat(document.naviHSR.Vers.value);
+	
+		// Rufe die Funktion getVersInfo() auf, um die Daten zu erhalten
+		const versInfo = await getVersInfo();
+	
+		// Überprüfen, ob der Vers im Bereich liegt
+		let foundCase = null;
+		let firstVers = null;
+		let lastVers = null;
+	
+		for (const [caseValue, start, end] of versInfo) {
+			if (!firstVers || parseFloat(start) < firstVers) {
+				firstVers = parseFloat(start);
+			}
+			if (!lastVers || parseFloat(end) > lastVers) {
+				lastVers = parseFloat(end);
+			}
+	
+			// Konvertiere start und end in Zahlen und überprüfe den Range
+			const startNum = parseFloat(start);
+			const endNum = parseFloat(end);
+	
+			if (!isNaN(startNum) && !isNaN(endNum) && versInput >= startNum && versInput <= endNum) {
+				foundCase = caseValue;
+				break;
+			}
+		}
+	
+		// Ausgabe basierend auf dem Ergebnis
+		if (foundCase) {
+	
+			if (zoom == 50) {
+				curSlide = foundCase;
+				bildAnzeigeDS();
+			}
+			else {
+				let match = foundCase.match(/^(\d+)([a-zA-Z])$/);
+				if (match) {
+					// Die Zahl und der Buchstabe werden in separate Variablen aufgeteilt
+					curSlide = parseInt(match[1], 10); // Erste Gruppe: Zahl
+					rectoVerso = match[2];            // Zweite Gruppe: Buchstabe
+				} else {
+					console.error("Ungültiges Format");
+				}
+				addChar = "";
+				bildAnzeigeES();
+			}
+			document.naviHSR.Vers.value = "";
+		} else {
+			alert(
+				`Der erste Vers ist ${firstVers}, der letzte Vers ist ${lastVers}.`
+			);
+		}
+	}
+	
+	async function getVersInfo() {
+		try {
+			let response; // Deklariere die Variable außerhalb des Blocks
+	
+			// Wähle die Datei basierend auf dem Zoom-Level
+			if (zoom == 50) {
+				response = await fetch('blattInfoDSCgm63.js');
+			} else {
+				response = await fetch('blattInfoCgm63.js');
+			}
+	
+			// Prüfen, ob die Anfrage erfolgreich war
+			if (!response.ok) {
+				throw new Error(`Fehler beim Laden der Datei: ${response.statusText}`);
+			}
+	
+			// Inhalt der Datei als Text lesen
+			const fileContent = await response.text();
+	
+			// Array, um die Ergebnisse zu speichern
+			const result = [];
+	
+			// Regulärer Ausdruck, um die Cases und die Konkordanz zu extrahieren
+			const regex = /case\s+"([^"]+)":.*?konkordanz="([^"]*)"/g;
+	
+			let match;
+			while ((match = regex.exec(fileContent)) !== null) {
+				const caseValue = match[1]; // Wert nach `case`
+				const konkordanz = match[2]; // Wert der Konkordanz
+	
+				if (konkordanz.includes('-')) {
+					// Split Konkordanz in zwei Teile
+					const [start, end] = konkordanz.split('-');
+					result.push([caseValue, start, end]);
+				} else {
+					// Keine Split-Werte, nur den Case-Wert hinzufügen
+					result.push([caseValue, konkordanz, ""]);
+				}
+			}
+	
+			return result;
+		} catch (error) {
+			console.error("Fehler beim Verarbeiten der Datei:", error);
+			return [];
+		}
 	}
 
 function bildAnzeigeZoom() {
@@ -1072,7 +1206,8 @@ function bildAnzeigeDS() {
 
 		case "-2": seitenAngabe = "Einband vorne außen"; lagenAngabe = ""; buchAuswahl = aktBuch + 1; break;
 		case "-1": seitenAngabe = "Einband vorne innen"; lagenAngabe = ""; buchAuswahl = aktBuch + 1; break;
-		case "0": seitenAngabe = "Bl. 1r"; lagenAngabe = ""; buchAuswahl = aktBuch + 1; break;
+		case "0": seitenAngabe = "Bl. 1r"; lagenAngabe = lagenNr + lagenName; schreiber="Schreiber 3"; buchAuswahl = aktBuch + 1; break;
+		case "111": schreiber="Schreiber 3"; break;
 		case "112": seitenAngabe = "Einband hinten innen"; lagenAngabe = ""; buchAuswahl = aktBuch + 1; break;
 		case "113": seitenAngabe = "Einband hinten außen"; lagenAngabe = ""; buchAuswahl = aktBuch + 1; break;
 		case "114": seitenAngabe = "Seitenansicht"; lagenAngabe = ""; buchAuswahl = aktBuch + 1; break;

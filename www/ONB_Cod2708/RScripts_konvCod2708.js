@@ -1,7 +1,7 @@
 // JavaScript Document
 
-window.onload = function() {
-    bildAnsichtKonv();
+window.onload = function () {
+	bildAnsichtKonv();
 };
 
 
@@ -60,7 +60,7 @@ var os;
 var xmlURL = "bildverz.xml";
 //var xmlURL;
 aktBuch = parent.aktBuch;
-var oesz=unescape("%F6%DF");
+var oesz = unescape("%F6%DF");
 var ae = unescape("%e4");
 var xmlDoc;
 var bildbeschreibungen;
@@ -72,191 +72,221 @@ var illustrationenArr = new Array();
 
 var addPage = new Map([]);
 var ZPage = [];
-			
+
 var fenVer = ""
 var fenKom = ""
 
 // Aus html übernommen
 //--------------------------------------------------------------
 
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("dropdown").addEventListener("mouseover", function() {
-        Tip('Buch wählen');
-    });
+document.addEventListener("DOMContentLoaded", function () {
+	document.getElementById("dropdown").addEventListener("mouseover", function () {
+		Tip('Buch wählen');
+	});
 
-    document.getElementById("dropdown").addEventListener("mouseout", function() {
-        UnTip();
-    });
+	document.getElementById("dropdown").addEventListener("mouseout", function () {
+		UnTip();
+	});
 
-    document.getElementById("buchMenu").addEventListener("change", function() {
-        MM_jumpMenuParts();
-    });
-	document.getElementById("blatt").addEventListener("mouseover", function() {
-        Tip('Blatt finden');
-    });
+	document.getElementById("buchMenu").addEventListener("change", function () {
+		MM_jumpMenuParts();
+	});
+	document.getElementById("blatt").addEventListener("mouseover", function () {
+		Tip('Blatt finden');
+	});
 
-    document.getElementById("blatt").addEventListener("mouseout", function() {
-        UnTip();
-    });
+	document.getElementById("blatt").addEventListener("mouseout", function () {
+		UnTip();
+	});
 
-    document.getElementById("blattInput").addEventListener("keypress", function(event) {
-        return submitenter(this, event);
-    });
+	document.getElementById("blattInput").addEventListener("keypress", function (event) {
+		return submitenter(this, event);
+	});
 
-    document.getElementById("submitBlattImg").addEventListener("mouseover", function() {
-        Tip('Blatt finden');
-    });
+	document.getElementById("submitBlattImg").addEventListener("mouseover", function () {
+		Tip('Blatt finden');
+	});
 
-    document.getElementById("submitBlattImg").addEventListener("mouseout", function() {
-        UnTip();
-    });
+	document.getElementById("submitBlattImg").addEventListener("mouseout", function () {
+		UnTip();
+	});
 
-    document.getElementById("submitBlattImg").addEventListener("click", function() {
-        checkSeitenEingabe();
-    });
-	document.getElementById("handschrift").addEventListener("mouseover", function() {
-        Tip('Handschrift wählen');
-    });
+	document.getElementById("submitBlattImg").addEventListener("click", function () {
+		checkSeitenEingabe();
+	});
 
-    document.getElementById("handschrift").addEventListener("mouseout", function() {
-        UnTip();
-    });
 
-    document.getElementById("handMenu").addEventListener("change", function() {
-        MM_jumpHandschrift();
-    });
-	document.getElementById("blaettern1").addEventListener("mouseover", function() {
-        Tip('vorheriges Buch');
-    });
 
-    document.getElementById("blaettern1").addEventListener("mouseout", function() {
-        UnTip();
-    });
+	document.getElementById("vers").addEventListener("mouseover", function () {
+		Tip('Vers finden');
+	});
 
-    document.getElementById("blaettern1").addEventListener("click", function() {
-        goPrevBook();
-    });
+	document.getElementById("vers").addEventListener("mouseout", function () {
+		UnTip();
+	});
 
-    document.getElementById("blaettern2").addEventListener("mouseover", function() {
-        Tip('zurückblättern');
-    });
+	document.getElementById("versInput").addEventListener("keypress", function (event) {
+		return submitenter(this, event);
+	});
 
-    document.getElementById("blaettern2").addEventListener("mouseout", function() {
-        UnTip();
-    });
+	document.getElementById("submitVersImg").addEventListener("mouseover", function () {
+		Tip('Vers finden');
+	});
 
-    document.getElementById("blaettern2").addEventListener("click", function() {
-        goPrevPage();
-    });
+	document.getElementById("submitVersImg").addEventListener("mouseout", function () {
+		UnTip();
+	});
 
-    document.getElementById("blaettern3").addEventListener("mouseover", function() {
-        Tip('weiterblättern');
-    });
+	document.getElementById("submitVersImg").addEventListener("click", function () {
+		checkVersEingabe();
+	});
 
-    document.getElementById("blaettern3").addEventListener("mouseout", function() {
-        UnTip();
-    });
 
-    document.getElementById("blaettern3").addEventListener("click", function() {
-        goNextPage();
-    });
 
-    document.getElementById("blaettern4").addEventListener("mouseover", function() {
-        Tip('nächstes Buch');
-    });
 
-    document.getElementById("blaettern4").addEventListener("mouseout", function() {
-        UnTip();
-    });
+	document.getElementById("handschrift").addEventListener("mouseover", function () {
+		Tip('Handschrift wählen');
+	});
 
-    document.getElementById("blaettern4").addEventListener("click", function() {
-        goNextBook();
-    });
-	document.getElementById("g50").addEventListener("mouseover", function() {
-        Tip('50%-Größe anzeigen');
-    });
+	document.getElementById("handschrift").addEventListener("mouseout", function () {
+		UnTip();
+	});
 
-    document.getElementById("g50").addEventListener("mouseout", function() {
-        UnTip();
-    });
+	document.getElementById("handMenu").addEventListener("change", function () {
+		MM_jumpHandschrift();
+	});
+	document.getElementById("blaettern1").addEventListener("mouseover", function () {
+		Tip('vorheriges Buch');
+	});
 
-    document.getElementById("g50").addEventListener("click", function() {
-        zoom50();
-    });
+	document.getElementById("blaettern1").addEventListener("mouseout", function () {
+		UnTip();
+	});
 
-    document.getElementById("g100").addEventListener("mouseover", function() {
-        Tip('100%-Größe anzeigen');
-    });
+	document.getElementById("blaettern1").addEventListener("click", function () {
+		goPrevBook();
+	});
 
-    document.getElementById("g100").addEventListener("mouseout", function() {
-        UnTip();
-    });
+	document.getElementById("blaettern2").addEventListener("mouseover", function () {
+		Tip('zurückblättern');
+	});
 
-    document.getElementById("g100").addEventListener("click", function() {
-        zoom100();
-    });
+	document.getElementById("blaettern2").addEventListener("mouseout", function () {
+		UnTip();
+	});
 
-    document.getElementById("g150").addEventListener("mouseover", function() {
-        Tip('150%-Größe anzeigen');
-    });
+	document.getElementById("blaettern2").addEventListener("click", function () {
+		goPrevPage();
+	});
 
-    document.getElementById("g150").addEventListener("mouseout", function() {
-        UnTip();
-    });
+	document.getElementById("blaettern3").addEventListener("mouseover", function () {
+		Tip('weiterblättern');
+	});
 
-    document.getElementById("g150").addEventListener("click", function() {
-        zoom150();
-    });
+	document.getElementById("blaettern3").addEventListener("mouseout", function () {
+		UnTip();
+	});
 
-    document.getElementById("zoomminus").addEventListener("mouseover", function() {
-        Tip('Zoom -');
-    });
+	document.getElementById("blaettern3").addEventListener("click", function () {
+		goNextPage();
+	});
 
-    document.getElementById("zoomminus").addEventListener("mouseout", function() {
-        UnTip();
-    });
+	document.getElementById("blaettern4").addEventListener("mouseover", function () {
+		Tip('nächstes Buch');
+	});
 
-    document.getElementById("zoomminus").addEventListener("click", function() {
-        zoomout();
-    });
+	document.getElementById("blaettern4").addEventListener("mouseout", function () {
+		UnTip();
+	});
 
-    document.getElementById("zoomplus").addEventListener("mouseover", function() {
-        Tip('Zoom +');
-    });
+	document.getElementById("blaettern4").addEventListener("click", function () {
+		goNextBook();
+	});
+	document.getElementById("g50").addEventListener("mouseover", function () {
+		Tip('50%-Größe anzeigen');
+	});
 
-    document.getElementById("zoomplus").addEventListener("mouseout", function() {
-        UnTip();
-    });
+	document.getElementById("g50").addEventListener("mouseout", function () {
+		UnTip();
+	});
 
-    document.getElementById("zoomplus").addEventListener("click", function() {
-        zoomin();
-    });
+	document.getElementById("g50").addEventListener("click", function () {
+		zoom50();
+	});
+
+	document.getElementById("g100").addEventListener("mouseover", function () {
+		Tip('100%-Größe anzeigen');
+	});
+
+	document.getElementById("g100").addEventListener("mouseout", function () {
+		UnTip();
+	});
+
+	document.getElementById("g100").addEventListener("click", function () {
+		zoom100();
+	});
+
+	document.getElementById("g150").addEventListener("mouseover", function () {
+		Tip('150%-Größe anzeigen');
+	});
+
+	document.getElementById("g150").addEventListener("mouseout", function () {
+		UnTip();
+	});
+
+	document.getElementById("g150").addEventListener("click", function () {
+		zoom150();
+	});
+
+	document.getElementById("zoomminus").addEventListener("mouseover", function () {
+		Tip('Zoom -');
+	});
+
+	document.getElementById("zoomminus").addEventListener("mouseout", function () {
+		UnTip();
+	});
+
+	document.getElementById("zoomminus").addEventListener("click", function () {
+		zoomout();
+	});
+
+	document.getElementById("zoomplus").addEventListener("mouseover", function () {
+		Tip('Zoom +');
+	});
+
+	document.getElementById("zoomplus").addEventListener("mouseout", function () {
+		UnTip();
+	});
+
+	document.getElementById("zoomplus").addEventListener("click", function () {
+		zoomin();
+	});
 });
 
 // Funktion, um Tooltip anzuzeigen
 function Tip(text) {
-    var tooltip = document.createElement("div");
-    tooltip.innerHTML = text;
-    tooltip.className = "tooltip";
-    document.body.appendChild(tooltip);
+	var tooltip = document.createElement("div");
+	tooltip.innerHTML = text;
+	tooltip.className = "tooltip";
+	document.body.appendChild(tooltip);
 
-    document.addEventListener("mousemove", updateTooltipPosition);
+	document.addEventListener("mousemove", updateTooltipPosition);
 
-    function updateTooltipPosition(event) {
-        var x = event.clientX + 10; 
-        var y = event.clientY - 30; 
+	function updateTooltipPosition(event) {
+		var x = event.clientX + 10;
+		var y = event.clientY - 30;
 
-        tooltip.style.left = x + 'px';
-        tooltip.style.top = y + 'px';
-    }
+		tooltip.style.left = x + 'px';
+		tooltip.style.top = y + 'px';
+	}
 }
 
 // Funktion, um Tooltip zu entfernen
 function UnTip() {
-    var tooltip = document.querySelector(".tooltip");
-    if (tooltip) {
-        tooltip.parentNode.removeChild(tooltip);
-    }
+	var tooltip = document.querySelector(".tooltip");
+	if (tooltip) {
+		tooltip.parentNode.removeChild(tooltip);
+	}
 }
 
 function TasteGedrueckt(Ereignis) {
@@ -306,65 +336,65 @@ function zoomout() {
 //--------------------------------------------------------------
 
 //Menu Abschnitte wählen
-function MM_jumpMenuParts(){ 
+function MM_jumpMenuParts() {
 	if (document.naviHSR.selectBook.value != "javascript:") {
-			var temp = document.naviHSR.selectBook.value;
-			rectoVerso = temp.substring(0,1);
-			addChar = '';
-			curSlide = parseInt(temp.substring(1));
-			if (isNaN(curSlide)) {
-				addChar = temp.substring(1,2);
-				curSlide = parseInt(temp.substring(2));
-			}
-			document.naviHSR.selectBook.selectedIndex = 0;
+		var temp = document.naviHSR.selectBook.value;
+		rectoVerso = temp.substring(0, 1);
+		addChar = '';
+		curSlide = parseInt(temp.substring(1));
+		if (isNaN(curSlide)) {
+			addChar = temp.substring(1, 2);
+			curSlide = parseInt(temp.substring(2));
+		}
+		document.naviHSR.selectBook.selectedIndex = 0;
 
-			if (zoom==50) {
-				if (rectoVerso == "r") {
-					if (addPage.has(parseInt(curSlide))) {					
-						if (addChar == "a") {
-							curSlide--;
-							addChar = "";
-						} else {
-							addChar = String.fromCodePoint(addChar.charCodeAt(0)-1);
-							if (addChar == "j") {
-								addChar = "i";
-							}
-						}
-					} else if (addChar == "Z") {
+		if (zoom == 50) {
+			if (rectoVerso == "r") {
+				if (addPage.has(parseInt(curSlide))) {
+					if (addChar == "a") {
+						curSlide--;
 						addChar = "";
 					} else {
-						curSlide--;
-						if ((ZPage.indexOf(parseInt(curSlide)) != -1)) {
-							addChar = "Z";
-						}	
+						addChar = String.fromCodePoint(addChar.charCodeAt(0) - 1);
+						if (addChar == "j") {
+							addChar = "i";
+						}
 					}
-					if ((addChar == "") && (addPage.has(parseInt(curSlide)))) {
-						addChar = addPage.get(parseInt(curSlide));
+				} else if (addChar == "Z") {
+					addChar = "";
+				} else {
+					curSlide--;
+					if ((ZPage.indexOf(parseInt(curSlide)) != -1)) {
+						addChar = "Z";
 					}
-					rectoVerso = "v";
-					}
-				bildAnzeigeDS();
-			} else {
-				bildAnzeigeES();
+				}
+				if ((addChar == "") && (addPage.has(parseInt(curSlide)))) {
+					addChar = addPage.get(parseInt(curSlide));
+				}
+				rectoVerso = "v";
+			}
+			bildAnzeigeDS();
+		} else {
+			bildAnzeigeES();
 		}
-		
+
 		window.localStorage.setItem('localStoreCurSlide', curSlide);
 		window.localStorage.setItem('localStoreRectoVerso', rectoVerso);
 		window.localStorage.setItem('localStoreAddChar', addChar);
 	}
 }
 
-function MM_jumpMenuPartsZ(){ 
+function MM_jumpMenuPartsZ() {
 	if (document.naviHSR.selectBook.value != "javascript:") {
 		if (document.naviHSR.selectBook.selectedIndex == 1) {
 			var temp = document.naviHSR.selectBook.value;
-			rectoVerso = temp.substring(0,1);
+			rectoVerso = temp.substring(0, 1);
 			addChar = '';
 			curSlide = 1;
 			document.naviHSR.selectBook.selectedIndex = 1;
 		} else {
 			var buch = document.naviHSR.selectBook.value;
-			rectoVerso = buch.substring(0,1);
+			rectoVerso = buch.substring(0, 1);
 			addChar = '';
 			curSlide = parseInt(buch.substring(1));
 			document.naviHSR.selectBook.selectedIndex = 0;
@@ -374,87 +404,87 @@ function MM_jumpMenuPartsZ(){
 	}
 }
 
-function MM_jumpVerweise(){ 
+function MM_jumpVerweise() {
 	if (document.naviHSR.selectVerweise.value != "javascript:") {
 
-			var temp = document.naviHSR.selectVerweise.value;
-			rectoVerso = temp.substring(0,1);
-			addChar = '';
-			curSlide = parseInt(temp.substring(1));
-			if (isNaN(curSlide)) {
-				addChar = temp.substring(1,2);
-				curSlide = parseInt(temp.substring(2));
-			}
-			document.naviHSR.selectVerweise.selectedIndex = 0;
+		var temp = document.naviHSR.selectVerweise.value;
+		rectoVerso = temp.substring(0, 1);
+		addChar = '';
+		curSlide = parseInt(temp.substring(1));
+		if (isNaN(curSlide)) {
+			addChar = temp.substring(1, 2);
+			curSlide = parseInt(temp.substring(2));
+		}
+		document.naviHSR.selectVerweise.selectedIndex = 0;
 
-			if (zoom==50) {
-				if (rectoVerso == "r") {
-					if (addPage.has(parseInt(curSlide))) {					
-						if (addChar == "a") {
-							curSlide--;
-							addChar = "";
-						} else {
-							addChar = String.fromCodePoint(addChar.charCodeAt(0)-1);
-							if (addChar == "j") {
-								addChar = "i";
-							}
-						}
-					} else if (addChar == "Z") {
+		if (zoom == 50) {
+			if (rectoVerso == "r") {
+				if (addPage.has(parseInt(curSlide))) {
+					if (addChar == "a") {
+						curSlide--;
 						addChar = "";
 					} else {
-						curSlide--;
-						if ((ZPage.indexOf(parseInt(curSlide)) != -1)) {
-							addChar = "Z";
-						}	
+						addChar = String.fromCodePoint(addChar.charCodeAt(0) - 1);
+						if (addChar == "j") {
+							addChar = "i";
+						}
 					}
-					if ((addChar == "") && (addPage.has(parseInt(curSlide)))) {
-						addChar = addPage.get(parseInt(curSlide));
+				} else if (addChar == "Z") {
+					addChar = "";
+				} else {
+					curSlide--;
+					if ((ZPage.indexOf(parseInt(curSlide)) != -1)) {
+						addChar = "Z";
 					}
-					rectoVerso = "v";
-					}
-				bildAnzeigeDS();
-			} else {
-				bildAnzeigeES();
+				}
+				if ((addChar == "") && (addPage.has(parseInt(curSlide)))) {
+					addChar = addPage.get(parseInt(curSlide));
+				}
+				rectoVerso = "v";
 			}
-		
-			window.localStorage.setItem('localStoreCurSlide', curSlide);
-			window.localStorage.setItem('localStoreRectoVerso', rectoVerso);
-			window.localStorage.setItem('localStoreAddChar', addChar);
+			bildAnzeigeDS();
+		} else {
+			bildAnzeigeES();
+		}
+
+		window.localStorage.setItem('localStoreCurSlide', curSlide);
+		window.localStorage.setItem('localStoreRectoVerso', rectoVerso);
+		window.localStorage.setItem('localStoreAddChar', addChar);
 	}
 }
 
-function MM_jumpHandschrift(){
-	
+function MM_jumpHandschrift() {
+
 	if (document.naviHSR.selectHand.value != "javascript:") {
 
-			var temp = document.naviHSR.selectHand.value;
-			document.naviHSR.selectHand.selectedIndex = 0;
-			window.location.href=temp
+		var temp = document.naviHSR.selectHand.value;
+		document.naviHSR.selectHand.selectedIndex = 0;
+		window.location.href = temp
 	}
 }
-			
-function goNextBook () {
+
+function goNextBook() {
 	if (aktBuch < lastbook) {
 		document.naviHSR.selectBook.selectedIndex = (++aktBuch + 1);
-	} else {return;}
+	} else { return; }
 
 	var temp = document.naviHSR.selectBook.value;
-			rectoVerso = temp.substring(0,1);
-			addChar = '';
-			curSlide = parseInt(temp.substring(1));
-			if (isNaN(curSlide)) {
-				addChar = temp.substring(1,2);
-				curSlide = parseInt(temp.substring(2));
-			}
+	rectoVerso = temp.substring(0, 1);
+	addChar = '';
+	curSlide = parseInt(temp.substring(1));
+	if (isNaN(curSlide)) {
+		addChar = temp.substring(1, 2);
+		curSlide = parseInt(temp.substring(2));
+	}
 
-	if (zoom==50) {
+	if (zoom == 50) {
 		if (rectoVerso == "r") {
-			if (addPage.has(parseInt(curSlide))) {					
+			if (addPage.has(parseInt(curSlide))) {
 				if (addChar == "a") {
 					curSlide--;
 					addChar = "";
 				} else {
-					addChar = String.fromCodePoint(addChar.charCodeAt(0)-1);
+					addChar = String.fromCodePoint(addChar.charCodeAt(0) - 1);
 					if (addChar == "j") {
 						addChar = "i";
 					}
@@ -465,13 +495,13 @@ function goNextBook () {
 				curSlide--;
 				if ((ZPage.indexOf(parseInt(curSlide)) != -1)) {
 					addChar = "Z";
-				}	
+				}
 			}
 			if ((addChar == "") && (addPage.has(parseInt(curSlide)))) {
 				addChar = addPage.get(parseInt(curSlide));
 			}
 			rectoVerso = "v";
-			}
+		}
 		bildAnzeigeDS();
 	} else {
 		window.localStorage.setItem('localStoreCurSlide', curSlide);
@@ -483,7 +513,7 @@ function goNextBook () {
 
 
 
-function goPrevBook () {
+function goPrevBook() {
 	if (aktBuch > 0) {
 		document.naviHSR.selectBook.selectedIndex = (--aktBuch + 1);
 	} else if ((aktBuch == 1) || (curSlide > 1)) {
@@ -493,22 +523,22 @@ function goPrevBook () {
 	}
 
 	var temp = document.naviHSR.selectBook.value;
-			rectoVerso = temp.substring(0,1);
-			addChar = '';
-			curSlide = parseInt(temp.substring(1));
-			if (isNaN(curSlide)) {
-				addChar = temp.substring(1,2);
-				curSlide = parseInt(temp.substring(2));
-			}
+	rectoVerso = temp.substring(0, 1);
+	addChar = '';
+	curSlide = parseInt(temp.substring(1));
+	if (isNaN(curSlide)) {
+		addChar = temp.substring(1, 2);
+		curSlide = parseInt(temp.substring(2));
+	}
 
-	if (zoom==50) {
+	if (zoom == 50) {
 		if (rectoVerso == "r") {
-			if (addPage.has(parseInt(curSlide))) {					
+			if (addPage.has(parseInt(curSlide))) {
 				if (addChar == "a") {
 					curSlide--;
 					addChar = "";
 				} else {
-					addChar = String.fromCodePoint(addChar.charCodeAt(0)-1);
+					addChar = String.fromCodePoint(addChar.charCodeAt(0) - 1);
 					if (addChar == "j") {
 						addChar = "i";
 					}
@@ -519,13 +549,13 @@ function goPrevBook () {
 				curSlide--;
 				if ((ZPage.indexOf(parseInt(curSlide)) != -1)) {
 					addChar = "Z";
-				}	
+				}
 			}
 			if ((addChar == "") && (addPage.has(parseInt(curSlide)))) {
 				addChar = addPage.get(parseInt(curSlide));
 			}
 			rectoVerso = "v";
-			}
+		}
 		bildAnzeigeDS();
 	} else {
 		window.localStorage.setItem('localStoreCurSlide', curSlide);
@@ -548,6 +578,10 @@ function submitenter(myfield, e) {
     if (keycode == 13) {
         if (myfield.name == "Blatt") {
             checkSeitenEingabe();
+            if (e.preventDefault) e.preventDefault(); 
+            return false;
+        } else if (myfield.name == "Vers") {
+            checkVersEingabe();
             if (e.preventDefault) e.preventDefault(); 
             return false;
         }
@@ -573,12 +607,12 @@ function goNextPage() {
 		if (!(curSlide == lastPageES && rectoVerso == lastPageRV)) {
 			if (rectoVerso == "v") {
 				// Slide number + additional character
-				if (addPage.has(parseInt(curSlide))) {					
+				if (addPage.has(parseInt(curSlide))) {
 					if (addPage.get(parseInt(curSlide)) == addChar) {
 						curSlide++;
 						addChar = "";
 					} else {
-						addChar = String.fromCodePoint(addChar.charCodeAt(0)+1);
+						addChar = String.fromCodePoint(addChar.charCodeAt(0) + 1);
 						if (addChar == "j") {
 							addChar = "k";
 						}
@@ -609,12 +643,12 @@ function goNextPage() {
 function goPrevPage() {
 	if (zoom == 50) {
 		if (curSlide > firstPageDS) {
-			if (addPage.has(parseInt(curSlide))) {					
+			if (addPage.has(parseInt(curSlide))) {
 				if (addChar == "a") {
 					curSlide--;
 					addChar = "";
 				} else {
-					addChar = String.fromCodePoint(addChar.charCodeAt(0)-1);
+					addChar = String.fromCodePoint(addChar.charCodeAt(0) - 1);
 					if (addChar == "j") {
 						addChar = "i";
 					}
@@ -625,7 +659,7 @@ function goPrevPage() {
 				curSlide--;
 				if ((ZPage.indexOf(parseInt(curSlide)) != -1)) {
 					addChar = "Z";
-				}	
+				}
 			}
 			if ((addChar == "") && (addPage.has(parseInt(curSlide)))) {
 				addChar = addPage.get(parseInt(curSlide));
@@ -637,14 +671,14 @@ function goPrevPage() {
 			bildAnzeigeDS();
 		}
 	} else {
-		if (!((curSlide == firstPageES + 1) && (rectoVerso == firstPageRV))){
+		if (!((curSlide == firstPageES + 1) && (rectoVerso == firstPageRV))) {
 			if (rectoVerso == "r") {
-				if (addPage.has(parseInt(curSlide))) {					
+				if (addPage.has(parseInt(curSlide))) {
 					if (addChar == "a") {
 						curSlide--;
 						addChar = "";
 					} else {
-						addChar = String.fromCodePoint(addChar.charCodeAt(0)-1);
+						addChar = String.fromCodePoint(addChar.charCodeAt(0) - 1);
 						if (addChar == "j") {
 							addChar = "i";
 						}
@@ -655,7 +689,7 @@ function goPrevPage() {
 					curSlide--;
 					if ((ZPage.indexOf(parseInt(curSlide)) != -1)) {
 						addChar = "Z";
-					}	
+					}
 				}
 				if ((addChar == "") && (addPage.has(parseInt(curSlide)))) {
 					addChar = addPage.get(parseInt(curSlide));
@@ -680,9 +714,9 @@ function checkSeitenEingabe() {
 	var rectoVersoAlt = rectoVerso;
 	var seitenEingabe = document.naviHSR.Blatt.value;
 
-	if (seitenEingabe == "0" || seitenEingabe == "" || isNaN(parseInt(seitenEingabe))) {document.naviHSR.Blatt.value = ""; return}
+	if (seitenEingabe == "0" || seitenEingabe == "" || isNaN(parseInt(seitenEingabe))) { document.naviHSR.Blatt.value = ""; return }
 
-	while (seitenEingabe.charAt(0)=="0") { //Führende 0'en abschneiden
+	while (seitenEingabe.charAt(0) == "0") { //Führende 0'en abschneiden
 		seitenEingabe = seitenEingabe.substring(1, seitenEingabe.length);
 	}
 
@@ -700,18 +734,18 @@ function checkSeitenEingabe() {
 		curSlide = seitenEingabe;
 		rectoVerso = "r";
 		addChar = ""
-	} else {alert("Bitte geben Sie eine gültige Blattanzeige ein."); return;}
+	} else { alert("Bitte geben Sie eine gültige Blattanzeige ein."); return; }
 
-		
+
 
 	if (zoom == 50) {
 		if (rectoVerso == "r") {
-			if (addPage.has(parseInt(curSlide))) {					
+			if (addPage.has(parseInt(curSlide))) {
 				if (addChar == "a") {
 					curSlide--;
 					addChar = "";
 				} else {
-					addChar = String.fromCodePoint(addChar.charCodeAt(0)-1);
+					addChar = String.fromCodePoint(addChar.charCodeAt(0) - 1);
 					if (addChar == "j") {
 						addChar = "i";
 					}
@@ -722,31 +756,141 @@ function checkSeitenEingabe() {
 				curSlide--;
 				if ((ZPage.indexOf(parseInt(curSlide)) != -1)) {
 					addChar = "Z";
-				}	
+				}
 			}
 			if ((addChar == "") && (addPage.has(parseInt(curSlide)))) {
 				addChar = addPage.get(parseInt(curSlide));
 			}
 			rectoVerso = "v";
-			}
+		}
 
-			document.naviHSR.Blatt.value = "";
-			if ((curSlide > (firstPaginiert - 2)) && (curSlide < lastPaginiert)) {
-				bildAnzeigeDS();
-			} else {
-	
-				alert("Das erste paginierte Blatt der Handschrift ist Bl. " + firstPaginiert + ", das letzte paginierte Blatt ist Bl." + lastPaginiert + ". Die Vorsatzblätter und die Buchdeckel können Sie von dort aus über die Buttons \"zurück-\" bzw. \"weiterblättern\" erreichen."); curSlide = curSlideAlt; rectoVerso = rectoVersoAlt;
-	
-			}
+		document.naviHSR.Blatt.value = "";
+		if ((curSlide > (firstPaginiert - 2)) && (curSlide < lastPaginiert)) {
+			bildAnzeigeDS();
 		} else {
-			if ((curSlide >= firstPaginiert) && (curSlide <= lastPaginiert)) {
-				bildAnzeigeES();
+
+			alert("Das erste paginierte Blatt der Handschrift ist Bl. " + firstPaginiert + ", das letzte paginierte Blatt ist Bl." + lastPaginiert + ". Die Vorsatzblätter und die Buchdeckel können Sie von dort aus über die Buttons \"zurück-\" bzw. \"weiterblättern\" erreichen."); curSlide = curSlideAlt; rectoVerso = rectoVersoAlt;
+
+		}
+	} else {
+		if ((curSlide >= firstPaginiert) && (curSlide <= lastPaginiert)) {
+			bildAnzeigeES();
+		} else {
+			alert("Das erste paginierte Blatt der Handschrift ist Bl. " + firstPaginiert + ", das letzte paginierte Blatt ist Bl. " + lastPaginiert + ". Die Vorsatzblätter und die Buchdeckel können Sie von dort aus über die Buttons \"zurück-\" bzw. \"weiterblättern\" erreichen."); curSlide = curSlideAlt; rectoVerso = rectoVersoAlt;
+		}
+	}
+	document.naviHSR.Blatt.value = "";
+}
+
+async function checkVersEingabe() {
+	// Hole den Wert aus dem Eingabefeld
+	const versInput = parseFloat(document.naviHSR.Vers.value);
+
+	// Rufe die Funktion getVersInfo() auf, um die Daten zu erhalten
+	const versInfo = await getVersInfo();
+
+	// Überprüfen, ob der Vers im Bereich liegt
+	let foundCase = null;
+	let firstVers = null;
+	let lastVers = null;
+
+	for (const [caseValue, start, end] of versInfo) {
+		if (!firstVers || parseFloat(start) < firstVers) {
+			firstVers = parseFloat(start);
+		}
+		if (!lastVers || parseFloat(end) > lastVers) {
+			lastVers = parseFloat(end);
+		}
+
+		// Konvertiere start und end in Zahlen und überprüfe den Range
+		const startNum = parseFloat(start);
+		const endNum = parseFloat(end);
+
+		if (!isNaN(startNum) && !isNaN(endNum) && versInput >= startNum && versInput <= endNum) {
+			foundCase = caseValue;
+			break;
+		}
+	}
+
+	// Ausgabe basierend auf dem Ergebnis
+	if (foundCase) {
+
+		if (zoom == 50) {
+			curSlide = foundCase;
+			bildAnzeigeDS();
+		}
+		else {
+			let match = foundCase.match(/^(\d+)([a-zA-Z])$/);
+			if (match) {
+				// Die Zahl und der Buchstabe werden in separate Variablen aufgeteilt
+				curSlide = parseInt(match[1], 10); // Erste Gruppe: Zahl
+				rectoVerso = match[2];            // Zweite Gruppe: Buchstabe
 			} else {
-				alert("Das erste paginierte Blatt der Handschrift ist Bl. " + firstPaginiert + ", das letzte paginierte Blatt ist Bl. " + lastPaginiert + ". Die Vorsatzblätter und die Buchdeckel können Sie von dort aus über die Buttons \"zurück-\" bzw. \"weiterblättern\" erreichen."); curSlide = curSlideAlt; rectoVerso = rectoVersoAlt;
+				console.error("Ungültiges Format");
+			}
+			addChar = "";
+			bildAnzeigeES();
+		}
+		document.naviHSR.Vers.value = "";
+	} else {
+		alert(
+			`Der erste Vers ist ${firstVers}, der letzte Vers ist ${lastVers}.`
+		);
+	}
+}
+
+async function getVersInfo() {
+	try {
+		let response; // Deklariere die Variable außerhalb des Blocks
+
+		// Wähle die Datei basierend auf dem Zoom-Level
+		if (zoom == 50) {
+			response = await fetch('blattInfoDSCod2708.js');
+		} else {
+			response = await fetch('blattInfoCod2708.js');
+		}
+
+		// Prüfen, ob die Anfrage erfolgreich war
+		if (!response.ok) {
+			throw new Error(`Fehler beim Laden der Datei: ${response.statusText}`);
+		}
+
+		// Inhalt der Datei als Text lesen
+		const fileContent = await response.text();
+
+		// Array, um die Ergebnisse zu speichern
+		const result = [];
+
+		// Regulärer Ausdruck, um die Cases und die Konkordanz zu extrahieren
+		const regex = /case\s+"([^"]+)":.*?konkordanz="([^"]*)"/g;
+
+		let match;
+		while ((match = regex.exec(fileContent)) !== null) {
+			const caseValue = match[1]; // Wert nach `case`
+			const konkordanz = match[2]; // Wert der Konkordanz
+
+			if (konkordanz.includes('-')) {
+				// Split Konkordanz in zwei Teile
+				const [start, end] = konkordanz.split('-');
+				result.push([caseValue, start, end]);
+			} else {
+				// Keine Split-Werte, nur den Case-Wert hinzufügen
+				result.push([caseValue, konkordanz, ""]);
 			}
 		}
-		document.naviHSR.Blatt.value = "";
+
+		return result;
+	} catch (error) {
+		console.error("Fehler beim Verarbeiten der Datei:", error);
+		return [];
 	}
+}
+
+// Funktion aufrufen und Ergebnis anzeigen
+//getVersInfo().then(data => console.log(data));
+
+// Funktion aufrufen und Ergebnis anzeigen
+//console.log(getVersInfo());
 
 function bildAnzeigeZoom() {
 	//alert ("localZoom: " + window.localStorage.getItem('localStoreCurSlide'));
@@ -760,7 +904,7 @@ function bildAnzeigeZoom() {
 	// Zusammensetzen des Dateinamens der Bilder
 
 	var curSlideStr = curSlide += '';
-	
+
 	switch (curSlideStr.length) {
 
 		case 1: zusatz = "00"; break;
@@ -782,10 +926,10 @@ function bildAnzeigeZoom() {
 		//case "-2": seitenAngabe = "Buchdeckel vorne"; lagenAngabe = ""; temp = "Rvs002"; buchAuswahl = 1; break;
 		default: seitenAngabe = "Bl. " + blatt; lagenAngabe = lagenNr + lagenName; buchAuswahl = aktBuch + 1; break;
 
-	}	
-	
+	}
+
 	Z.showImage("myContainer", temp, "zLogoVisible=0");
-	
+
 	// Befüllen der Textfelder für Blatt- und Versnummer sowie der Lage bzw. des Lagensymbols
 	document.getElementById('blattAnzeige').innerHTML = seitenAngabe;
 	document.getElementById('versAnzeige').innerHTML = konkordanz;
@@ -795,21 +939,21 @@ function bildAnzeigeZoom() {
 
 	//if (imgDescr) {
 
-		//window.document.getElementById('bildbeschreibung').style.visibility='visible';  
-		//window.document.getElementById('miniaturansicht').style.visibility='visible';
-		//window.document.getElementById('bildbeschreibungHell').style.visibility='hidden';  
-		//window.document.getElementById('miniaturansichtHell').style.visibility='hidden';
+	//window.document.getElementById('bildbeschreibung').style.visibility='visible';  
+	//window.document.getElementById('miniaturansicht').style.visibility='visible';
+	//window.document.getElementById('bildbeschreibungHell').style.visibility='hidden';  
+	//window.document.getElementById('miniaturansichtHell').style.visibility='hidden';
 
 	//} else {
 
-		//window.document.getElementById('bildbeschreibung').style.visibility='hidden';  
-		//window.document.getElementById('miniaturansicht').style.visibility='hidden';
-		//window.document.getElementById('bildbeschreibungHell').style.visibility='visible';  
-		//window.document.getElementById('miniaturansichtHell').style.visibility='visible';
+	//window.document.getElementById('bildbeschreibung').style.visibility='hidden';  
+	//window.document.getElementById('miniaturansicht').style.visibility='hidden';
+	//window.document.getElementById('bildbeschreibungHell').style.visibility='visible';  
+	//window.document.getElementById('miniaturansichtHell').style.visibility='visible';
 
 	//}
 
-	window.defaultStatus = "Berner Parzival-Handschrift, " + seitenAngabe;	
+	window.defaultStatus = "Berner Parzival-Handschrift, " + seitenAngabe;
 
 }
 
@@ -818,6 +962,13 @@ function bildAnzeigeZoom() {
 function bildAnzeigeES() {
 	if (((curSlide >= firstPageES) && (curSlide < lastPageES + 1))) {
 		var blatt = curSlide + addChar + rectoVerso + "";
+		/*console.log("curSlide");
+		console.log(curSlide);
+		console.log("rectoVerso");
+		console.log(rectoVerso);
+		console.log("blatt");
+		console.log(blatt);
+		console.log("-----");*/
 		blattInfo(blatt);
 		var lageTxt = ". Lage, ";
 		if (lagenNr != '') {
@@ -828,7 +979,7 @@ function bildAnzeigeES() {
 			case 1: zusatz = "00"; break;
 			case 2: zusatz = "0"; break;
 			default: zusatz = ""; break;
-		}		
+		}
 
 		// Bildname und Pfad ermitteln und Bild laden
 
@@ -842,7 +993,7 @@ function bildAnzeigeES() {
 		} else {
 			blattalt = blatt + ' (alt ' + alt + ')'
 		}
-		
+
 		switch (blatt) {
 
 			//case "0v": blattAngabe = "Iv"; lagenAngabe = ""; buchAuswahl = 0; break;
@@ -861,11 +1012,11 @@ function bildAnzeigeES() {
 			//case "": blattAngabe = "Einband hinten aussen"; lagenAngabe = ""; bildURL = zoom + "/Wellcome49_00Einband_hinten_aussen.jpg"; buchAuswahl = aktBuch + 1; break;
 			//case "": blattAngabe = "Einband Ruecken"; lagenAngabe = ""; bildURL = zoom + "/Wellcome49_00Einband_Ruecken.jpg"; buchAuswahl = aktBuch + 1; break;
 			default: blattAngabe = "Bl. " + blattalt; lagenAngabe = lagenNr + lagenName; buchAuswahl = aktBuch + 1; break;
-			
-		
+
+
 		}
 
-		
+
 
 		document.getElementById('versAnzeige').innerHTML = konkordanz;
 		document.getElementById('schreibAnzeige').innerHTML = schreiber;
@@ -876,30 +1027,30 @@ function bildAnzeigeES() {
 		document.images['imgFaksimilev'].src = "../Lagensymbole/Einzelseite/blind.gif";
 		document.images['imgFaksimiler'].src = "../Lagensymbole/Einzelseite/blind.gif";
 		document.images['imgFaksimile'].src = bildURL;
-		
-	if (imgKom) {
-		window.document.getElementById('bildbeschreibung').style.visibility='visible'; 
-		window.document.getElementById('bildbeschreibungHell').style.visibility='hidden';  
-	} else {
-		window.document.getElementById('bildbeschreibung').style.visibility='hidden'; 
-		window.document.getElementById('bildbeschreibungHell').style.visibility='visible';  
+
+		if (imgKom) {
+			window.document.getElementById('bildbeschreibung').style.visibility = 'visible';
+			window.document.getElementById('bildbeschreibungHell').style.visibility = 'hidden';
+		} else {
+			window.document.getElementById('bildbeschreibung').style.visibility = 'hidden';
+			window.document.getElementById('bildbeschreibungHell').style.visibility = 'visible';
+		}
+
+		if (imgVer) {
+			window.document.getElementById('miniaturansicht').style.visibility = 'visible';
+			window.document.getElementById('miniaturansichtHell').style.visibility = 'hidden';
+		} else {
+			window.document.getElementById('miniaturansicht').style.visibility = 'hidden';
+			window.document.getElementById('miniaturansichtHell').style.visibility = 'visible';
+		}
+
+		window.document.getElementById('zoomminus').style.visibility = 'visible';
+		window.document.getElementById('zoomminusHell').style.visibility = 'hidden';
+		window.document.getElementById('zoomplus').style.visibility = 'visible';
+		window.document.getElementById('zoomplusHell').style.visibility = 'hidden';
+
+		window.defaultStatus = "Berner Parzival-Handschrift, " + blattAngabe + "  |  Bildgr" + oesz + "e: " + zoom + "%"; return true;
 	}
-
-	if (imgVer) {
-		window.document.getElementById('miniaturansicht').style.visibility='visible';
-		window.document.getElementById('miniaturansichtHell').style.visibility='hidden';
-	} else {
-		window.document.getElementById('miniaturansicht').style.visibility='hidden';
-		window.document.getElementById('miniaturansichtHell').style.visibility='visible';
-	}
-
-		window.document.getElementById('zoomminus').style.visibility='visible';
-		window.document.getElementById('zoomminusHell').style.visibility='hidden';
-		window.document.getElementById('zoomplus').style.visibility='visible';
-		window.document.getElementById('zoomplusHell').style.visibility='hidden';
-
-		window.defaultStatus = "Berner Parzival-Handschrift, " + blattAngabe + "  |  Bildgr" + oesz +"e: " + zoom + "%";return true;
-	}	
 }
 
 
@@ -909,12 +1060,12 @@ function bildAnzeigeDS() {
 
 	nexSlide = curSlide
 	nexChar = addChar
-	if (addPage.has(parseInt(nexSlide))) {					
+	if (addPage.has(parseInt(nexSlide))) {
 		if (addPage.get(parseInt(nexSlide)) == nexChar) {
 			nexSlide++;
 			nexChar = "";
 		} else {
-			nexChar = String.fromCodePoint(nexChar.charCodeAt(0)+1);
+			nexChar = String.fromCodePoint(nexChar.charCodeAt(0) + 1);
 			if (nexChar == "j") {
 				nexChar = "k";
 			}
@@ -924,36 +1075,36 @@ function bildAnzeigeDS() {
 	} else {
 		nexSlide++;
 		nexChar = ""
-		}
+	}
 	if ((nexChar == "") && (addPage.has(parseInt(nexSlide)))) {
 		nexChar = "a";
 	}
-	
+
 	var curSlideStr = curSlide += '';
 	switch (curSlideStr.length) {
 		case 1: var zusatzv = "00"; break;
 		case 2: var zusatzv = "0"; break;
 		default: var zusatzv = ""; break;
 	}
-	
+
 	var nexSlideStr = nexSlide += '';
 	switch (nexSlideStr.length) {
 		case 1: var zusatzr = "00"; break;
 		case 2: var zusatzr = "0"; break;
 		default: var zusatzr = ""; break;
 	}
-	
+
 	var tempv = "T" + zusatzv + curSlide + addChar + 'v';
 	var tempr = "T" + zusatzr + nexSlide + nexChar + 'r';
 	var bildURLv = "50/" + tempv + ".jpg";
 	var bildURLr = "50/" + tempr + ".jpg";
 	switch (curSlide) {
 
-		case "0":  
+		case "0":
 			bildURLv = "50/transparent.png";
 			bildURLr = "50/T001r.jpg"; break;
 
-		case "114":  
+		case "114":
 			bildURLv = "50/T114v.jpg";
 			bildURLr = "50/transparent.png"; break;
 
@@ -975,41 +1126,41 @@ function bildAnzeigeDS() {
 	var blatt = curSlide + addChar + "v";
 	blattInfo(blatt); // Info Verso
 	var schreibv = schreiber
-    if 	(imgKom) {
+	if (imgKom) {
 		rvKom = 1
-	} 
-    if 	(imgVer) {
+	}
+	if (imgVer) {
 		rvVer = 1
 	}
-	
+
 	blatt = nexSlide + nexChar + "r";
 	blattInfo(blatt); // Info Recto
 	var schreibr = schreiber
-    if 	(imgKom) {
+	if (imgKom) {
 		rvKom = 2
-	} 
-    if 	(imgVer) {
+	}
+	if (imgVer) {
 		rvVer = 2
-	} 
-	
+	}
+
 	if (schreibv == schreibr) {
 		schreiber = schreibv
 	}
 	else {
-		schreiber = schreibv +" / "+schreibr
+		schreiber = schreibv + " / " + schreibr
 	}
-	
+
 	blatt = curSlide + addChar + "";
 	blattInfoDS(blatt); //Info Recto/Verso
 	var lageTxt = ". Lage, ";
 	if (lagenNr != '') {
 		lagenNr = lagenNr + lageTxt;
 	}
-	
+
 	switch (curSlide) {
 
-		case "0": seitenAngabe = "Bl. 1r"; lagenAngabe = ""; buchAuswahl = aktBuch + 1; break;
-		case "114": seitenAngabe = "Bl. 114v"; lagenAngabe = ""; buchAuswahl = aktBuch + 1; break;
+		case "0": seitenAngabe = "Bl. 1r"; lagenAngabe = lagenNr + lagenName; buchAuswahl = aktBuch + 1; break;
+		case "114": seitenAngabe = "Bl. 114v"; lagenAngabe = lagenNr + lagenName; buchAuswahl = aktBuch + 1; break;
 		//case "1": seitenAngabe = "Bl. Iv / Bl. " + curSlide + "r"; lagenAngabe = lagenNr + lageTxt + lagenName; buchAuswahl = 2; break;
 		//case "181": seitenAngabe = "Bl. " + (curSlide-1) + "v / Vorsatzbl."; lagenAngabe = ""; buchAuswahl = aktBuch + 1; break;
 		//case "182": seitenAngabe = "Vorsatzbl. / Buchdeckel"; lagenAngabe = ""; buchAuswahl = 0; break;
@@ -1020,7 +1171,7 @@ function bildAnzeigeDS() {
 		//case "0": seitenAngabe = "Vorsatzblatt_v"+ " / " + nexSlide + nexChar + "r"; lagenAngabe = lagenNr + lagenName; buchAuswahl = aktBuch + 1; break;
 		//case "72": seitenAngabe = "Bl. " + curSlide + addChar + "v / Einband hinten innen"; lagenAngabe = lagenNr + lagenName; buchAuswahl = aktBuch + 1; break;
 		//case "73": seitenAngabe = "Einband hinten aussen / Einband Ruecken"; lagenAngabe = lagenNr + lagenName; buchAuswahl = aktBuch + 1; break;
-		
+
 		default: seitenAngabe = "Bl. " + curSlide + addChar + "v / " + nexSlide + nexChar + "r"; lagenAngabe = lagenNr + lagenName; buchAuswahl = aktBuch + 1; break;
 
 	}
@@ -1036,8 +1187,8 @@ function bildAnzeigeDS() {
 	document.images['imgFaksimiler'].src = bildURLr;
 
 	if (rvKom != 0) {
-		window.document.getElementById('bildbeschreibung').style.visibility='visible'; 
-		window.document.getElementById('bildbeschreibungHell').style.visibility='hidden';
+		window.document.getElementById('bildbeschreibung').style.visibility = 'visible';
+		window.document.getElementById('bildbeschreibungHell').style.visibility = 'hidden';
 		if (rvKom == 1) {
 			fenKom = curSlide + addChar + 'v';
 		}
@@ -1045,13 +1196,13 @@ function bildAnzeigeDS() {
 			fenKom = nexSlide + nexChar + 'r'
 		}
 	} else {
-		window.document.getElementById('bildbeschreibung').style.visibility='hidden'; 
-		window.document.getElementById('bildbeschreibungHell').style.visibility='visible';  
+		window.document.getElementById('bildbeschreibung').style.visibility = 'hidden';
+		window.document.getElementById('bildbeschreibungHell').style.visibility = 'visible';
 	}
 
 	if (rvVer != 0) {
-		window.document.getElementById('miniaturansicht').style.visibility='visible';
-		window.document.getElementById('miniaturansichtHell').style.visibility='hidden';
+		window.document.getElementById('miniaturansicht').style.visibility = 'visible';
+		window.document.getElementById('miniaturansichtHell').style.visibility = 'hidden';
 		if (rvVer == 1) {
 			fenVer = curSlide + addChar + 'v';
 		}
@@ -1059,16 +1210,16 @@ function bildAnzeigeDS() {
 			fenVer = nexSlide + nexChar + 'r'
 		}
 	} else {
-		window.document.getElementById('miniaturansicht').style.visibility='hidden';
-		window.document.getElementById('miniaturansichtHell').style.visibility='visible';
+		window.document.getElementById('miniaturansicht').style.visibility = 'hidden';
+		window.document.getElementById('miniaturansichtHell').style.visibility = 'visible';
 	}
 
-	window.document.getElementById('zoomminus').style.visibility='hidden';
-	window.document.getElementById('zoomminusHell').style.visibility='visible';
-	window.document.getElementById('zoomplus').style.visibility='hidden';
-	window.document.getElementById('zoomplusHell').style.visibility='visible';
+	window.document.getElementById('zoomminus').style.visibility = 'hidden';
+	window.document.getElementById('zoomminusHell').style.visibility = 'visible';
+	window.document.getElementById('zoomplus').style.visibility = 'hidden';
+	window.document.getElementById('zoomplusHell').style.visibility = 'visible';
 
-	window.defaultStatus = "Berner Parzival-Handschrift, " + seitenAngabe + "  |  Bildgr" + oesz +"e: " + zoom + "%";return true;
+	window.defaultStatus = "Berner Parzival-Handschrift, " + seitenAngabe + "  |  Bildgr" + oesz + "e: " + zoom + "%"; return true;
 }
 
 
@@ -1082,13 +1233,13 @@ function zoom150() {
 		case 150: return; break;
 
 	}
-	if(curSlide==0){
+	if (curSlide == 0) {
 		curSlide++;
-		rectoVerso="r";
+		rectoVerso = "r";
 		console.log(curSlide);
 	}
 
-	zoom = 150; 
+	zoom = 150;
 	bildAnzeigeES();
 }
 
@@ -1097,8 +1248,8 @@ function zoom100() {
 	document.getElementById("imgFaksimile").style.width = "auto";
 	switch (Number(zoom)) {
 
-		case 50: 
-		//if((curSlide == "-2") && (rectoVerso == "r")) {
+		case 50:
+			//if((curSlide == "-2") && (rectoVerso == "r")) {
 			break;
 		//} else {
 		//	rectoVerso ="v"; 
@@ -1109,14 +1260,14 @@ function zoom100() {
 		case 100: return; break;
 		case 150: break;
 	}
-	if(curSlide==0){
+	if (curSlide == 0) {
 		curSlide++;
-		rectoVerso="r";
+		rectoVerso = "r";
 		console.log(curSlide);
 	}
-		
+
 	zoom = 100;
-	bildAnzeigeES();	
+	bildAnzeigeES();
 }
 
 
@@ -1124,18 +1275,18 @@ function zoom50() {
 
 	//switch (true) {
 
-		//case  Number(zoom) > 50: if (rectoVerso == "v") {curSlide++}; break;
-		//case  Number(zoom) == 50: return; break;
+	//case  Number(zoom) > 50: if (rectoVerso == "v") {curSlide++}; break;
+	//case  Number(zoom) == 50: return; break;
 
 	//}
 
-	if ((rectoVerso == "r") && (curSlide > 0)){
-		if (addPage.has(parseInt(curSlide))) {					
+	if ((rectoVerso == "r") && (curSlide > 0)) {
+		if (addPage.has(parseInt(curSlide))) {
 			if (addChar == "a") {
 				curSlide--;
 				addChar = "";
 			} else {
-				addChar = String.fromCodePoint(addChar.charCodeAt(0)-1);
+				addChar = String.fromCodePoint(addChar.charCodeAt(0) - 1);
 				if (addChar == "j") {
 					addChar = "i";
 				}
@@ -1146,13 +1297,13 @@ function zoom50() {
 			curSlide--;
 			if ((ZPage.indexOf(parseInt(curSlide)) != -1)) {
 				addChar = "Z";
-			}	
+			}
 		}
 		if ((addChar == "") && (addPage.has(parseInt(curSlide)))) {
 			addChar = addPage.get(parseInt(curSlide));
 		}
 		rectoVerso = "v";
-		}
+	}
 	zoom = 50;
 	bildAnzeigeDS();
 }
@@ -1183,13 +1334,13 @@ function ansichtKonv() {
 
 	if (Number(zoom) == 50) {
 		curSlide = curSlide;
-	} else if ((Number(zoom) != 50) && (rectoVerso == "v" )) {
-		curSlide = -- curSlide;
+	} else if ((Number(zoom) != 50) && (rectoVerso == "v")) {
+		curSlide = --curSlide;
 		//rectoVerso = "v";
 	}
-	
-	
-	
+
+
+
 	//alert("local: " + window.localStorage.getItem('localStoreCurSlide'));
 	window.location.href = url_konv;
 
@@ -1210,7 +1361,7 @@ function ansichtZoom() {
 	window.localStorage.setItem('localStoreZoomStufe', zoom);
 	window.localStorage.setItem('localStoreRectoVerso', rectoVerso);
 	window.localStorage.setItem('localStoreAddChar', addPage);
-	
+
 	//alert("localStorage Zoomstufe: " + window.localStorage.getItem('localStoreZoomStufe'));
 	window.location.href = url_zoom;
 }
@@ -1223,8 +1374,8 @@ function ansichtMiniatur() {
 	ansicht = window.localStorage.getItem('localStoreAnsicht');
 	zoom = window.localStorage.getItem('localStoreZoomStufe');
 	rectoVerso = window.localStorage.getItem('localStoreRectoVerso');
-		
-	if(zoom == 50) {
+
+	if (zoom == 50) {
 		if ((curSlide == "8") || (curSlide == "20") || (curSlide == "21") || (curSlide == "23") || (curSlide == "38") || (curSlide == "47") || (curSlide == "56") || (curSlide == "118") || (curSlide == "126") || (curSlide == "128")) {
 			rectoVerso = "r";
 		} else {
@@ -1233,7 +1384,7 @@ function ansichtMiniatur() {
 	} else {
 		rectoVerso = rectoVerso;
 	}
-	
+
 	window.localStorage.setItem('localStoreCurSlide', curSlide);
 	window.localStorage.setItem('localStoreAnsicht', "miniatur");
 	window.localStorage.setItem('localStoreZoomStufe', zoom);
@@ -1243,17 +1394,17 @@ function ansichtMiniatur() {
 }
 
 function ansichtMiniaturStart() {
-	
+
 	if (String(window.location).indexOf("Daten") != -1) {
 		var url_miniatur = "miniaturen.html";
 	} else {
 		var url_miniatur = "Daten/miniaturen.html";
 	}
-	
+
 	curSlide = "8";
 	rectoVerso = "r";
 	zoom = "50";
-	
+
 	window.localStorage.setItem('localStoreCurSlide', curSlide);
 	window.localStorage.setItem('localStoreAnsicht', "miniatur");
 	window.localStorage.setItem('localStoreZoomStufe', zoom);
@@ -1271,7 +1422,7 @@ function ansichtMiniaturen() {
 	parent.curSlideX = curSlide;
 	parent.zoomX = zoom;
 
-	if(zoom == 50) {
+	if (zoom == 50) {
 		if ((curSlide == "8") || (curSlide == "20") || (curSlide == "21") || (curSlide == "23") || (curSlide == "38") || (curSlide == "47") || (curSlide == "56") || (curSlide == "118") || (curSlide == "126") || (curSlide == "128")) {
 			parent.rectoVersoX = "r";
 		} else {
@@ -1287,26 +1438,26 @@ function ansichtMiniaturen() {
 
 
 function bildAnsichtKonv() {
-	
+
 	// Prüfen auf Parameter
-	
+
 	var strHref = window.location.href;
 	// wenn Parameter für Seite angegeben werden
-	if (strHref.indexOf("?") > -1 ){
+	if (strHref.indexOf("?") > -1) {
 		//alert("parameter");
-    	var strQueryString = strHref.substr(strHref.indexOf("?") + 1).toLowerCase();
+		var strQueryString = strHref.substr(strHref.indexOf("?") + 1).toLowerCase();
 		var aQueryString = strQueryString.split("&");
 		var strQueryBlatt = aQueryString[0];
 		var strQueryGroesse = aQueryString[1];
 		var strQueryAnsicht = aQueryString[2];
-		
+
 		for (i = 0; i < 2; i++) {
-			if (strQueryBlatt.charAt(0)=="0") {
+			if (strQueryBlatt.charAt(0) == "0") {
 				strQueryBlatt = strQueryBlatt.substring(1, strQueryBlatt.length);
 			}
 		}
 		addChar = ""
-		curSlide = strQueryBlatt.substring(0, strQueryBlatt.length - 1);		
+		curSlide = strQueryBlatt.substring(0, strQueryBlatt.length - 1);
 		rectoVerso = strQueryBlatt.substring(strQueryBlatt.length - 1, strQueryBlatt.length);
 		zoom = Number(strQueryGroesse);
 		if (isNaN(curSlide)) {
@@ -1331,8 +1482,8 @@ function bildAnsichtKonv() {
 			window.navigation.location.href = "navigation_miniaturen.html";
 			ansicht = "miniatur";
 		}*/
-	} 
-	
+	}
+
 	//alert("curSlide: " + curSlide + ", ansicht: " + ansicht + ", zoomStufe: " + zoom + ", rectoVerso: " + rectoVerso);
 	if (zoom == 50) {
 		//alert("doppelseitig");
@@ -1354,7 +1505,7 @@ function importXML() {
 		xmlDoc.onreadystatechange = function () {
 			if (xmlDoc.readyState == 4) xmlLoaded()
 		};
- 	}
+	  }
 	else
 	{
 		alert('Your browser can\'t handle this script');
@@ -1366,40 +1517,40 @@ function importXML() {
 
 function importXML() {
 	var xmlURL = "bildverz.xml";
-	 // Eine Verbindung zurm XML-Dokument aufbauen
-  	var Connect = new XMLHttpRequest();
-  	// einzulesendes XML-Dokument definieren und Anfrage senden
-  	Connect.open("GET", xmlURL, false);
-  	Connect.setRequestHeader("Content-Type", "text/xml");
-  	Connect.send(null);
-  	// Die Antwort in einem XML-Dokument speichern
-  	var xmlDoc = Connect.responseXML;
-  	// Das Wurzelelement in einer Variable speichern
-  	bildbeschreibungen = xmlDoc.childNodes[0];
-	
+	// Eine Verbindung zurm XML-Dokument aufbauen
+	var Connect = new XMLHttpRequest();
+	// einzulesendes XML-Dokument definieren und Anfrage senden
+	Connect.open("GET", xmlURL, false);
+	Connect.setRequestHeader("Content-Type", "text/xml");
+	Connect.send(null);
+	// Die Antwort in einem XML-Dokument speichern
+	var xmlDoc = Connect.responseXML;
+	// Das Wurzelelement in einer Variable speichern
+	bildbeschreibungen = xmlDoc.childNodes[0];
+
 	//alert("erster Knoten 5: " + bildbeschreibungen.children[1].getElementsByTagName('tit1')[0].firstChild.nodeValue);
 	//var titel = bildbeschreibungen.illustration[1].getElementsByTagName('tit1')[0].firstChild.nodeValue;
-	
+
 }
 
 function localXML() {
 	var txt, parser, xmlDoc;
-	txt = "<radix>"+
-	"<illustration blatt='175v' nr='1'>"+
-		"<tit1> </tit1>"+
-		"<rub> </rub>"+
-		"<transl> </transl>"+
-		"<descr>Verweis 1: Vide pl(us) de Sÿbill(is) jn occulto a k(arta) 253 . 273 . 274 . 291 . 294.&lt;br&gt;&lt;br&gt;Verweis 2: Et jn Bocacio de Ca#.sib(us) viro(rum) jllu#.st(ri)u(m) a k(arta) ret(ro) de Sibilla Cu-|mana.Cumana  Erithrea [Wolfenbüttel, Herzog August Bibliothek, Cod. Guelf. 36.19 Aug. 2°, Bl. 181r–188v].&lt;br&gt;&lt;br&gt;</descr>"+
-	"</illustration>"+
-	"<illustration blatt='176r' nr='2'>"+
-		"<tit1> </tit1>"+
-		"<rub> </rub>"+
-		"<transl> </transl>"+
-		"<descr>Notat : Incipit p(ri)m(us) liber Sibille vatis Cumane. | (et) alie comp(re)hundun(tur) #.sub h(uius) no(m)i(n)e potior(is) Cumane (etc) | q(ue) #.se ip#.sa(m) no(m)i(n)at p(ostea) v(er)#.su .81.&lt;br&gt;&lt;br&gt;</descr>"+ 
-	"</illustration>"+
-	"</radix>";
+	txt = "<radix>" +
+		"<illustration blatt='175v' nr='1'>" +
+		"<tit1> </tit1>" +
+		"<rub> </rub>" +
+		"<transl> </transl>" +
+		"<descr>Verweis 1: Vide pl(us) de Sÿbill(is) jn occulto a k(arta) 253 . 273 . 274 . 291 . 294.&lt;br&gt;&lt;br&gt;Verweis 2: Et jn Bocacio de Ca#.sib(us) viro(rum) jllu#.st(ri)u(m) a k(arta) ret(ro) de Sibilla Cu-|mana.Cumana  Erithrea [Wolfenbüttel, Herzog August Bibliothek, Cod. Guelf. 36.19 Aug. 2°, Bl. 181r–188v].&lt;br&gt;&lt;br&gt;</descr>" +
+		"</illustration>" +
+		"<illustration blatt='176r' nr='2'>" +
+		"<tit1> </tit1>" +
+		"<rub> </rub>" +
+		"<transl> </transl>" +
+		"<descr>Notat : Incipit p(ri)m(us) liber Sibille vatis Cumane. | (et) alie comp(re)hundun(tur) #.sub h(uius) no(m)i(n)e potior(is) Cumane (etc) | q(ue) #.se ip#.sa(m) no(m)i(n)at p(ostea) v(er)#.su .81.&lt;br&gt;&lt;br&gt;</descr>" +
+		"</illustration>" +
+		"</radix>";
 	parser = new DOMParser();
-	xmlDoc = parser.parseFromString(txt,"text/xml");
+	xmlDoc = parser.parseFromString(txt, "text/xml");
 	bildbeschreibungen = xmlDoc.childNodes[0];
 }
 
@@ -1410,7 +1561,7 @@ function xmlLoaded() {
 
 
 function init() {
-	
+
 	importXML();
 	if (zoom == 50) {
 		bildAnzeigeDS();
@@ -1425,11 +1576,11 @@ function init() {
 
 function beschreibungAnzeigen(folio) {
 
-	var pfad=self.document.URL;
+	var pfad = self.document.URL;
 	var backslash = unescape("%5C");
 
 	if (pfad.indexOf(backslash) != -1) {
-		pfad = pfad.replace(/\\/g,"/");
+		pfad = pfad.replace(/\\/g, "/");
 	}
 
 	var temp = pfad.indexOf("Daten");
@@ -1443,24 +1594,24 @@ function beschreibungAnzeigen(folio) {
 	var printImgURL = "../images/print.jpg";
 	var jsURL = "print.js";
 	//var illustration = xmlDoc.getElementsByTagName('illustration');
-	var titel,rubrizierung,uebersetzung,beschreibung,illustrationNr;
+	var titel, rubrizierung, uebersetzung, beschreibung, illustrationNr;
 	var content = "";
 	//alert(illustration);
-	for (i = 0; i < 2; i++ ) {
+	for (i = 0; i < 2; i++) {
 		if (zoom == 50) {
-			if ((illustration[i].attributes[0].nodeValue == curSlide + "r") || (illustration[i].attributes[0].nodeValue == (curSlide -1) + "v")) {
+			if ((illustration[i].attributes[0].nodeValue == curSlide + "r") || (illustration[i].attributes[0].nodeValue == (curSlide - 1) + "v")) {
 				titel = illustration[i].getElementsByTagName('tit1')[0].firstChild.nodeValue;
 				rubrizierung = illustration[i].getElementsByTagName('rub')[0].firstChild.nodeValue;
 				uebersetzung = illustration[i].getElementsByTagName('transl')[0].firstChild.nodeValue;
-				beschreibung = illustration[i].getElementsByTagName('descr')[0].firstChild.nodeValue;		
+				beschreibung = illustration[i].getElementsByTagName('descr')[0].firstChild.nodeValue;
 				illustrationNr = "Illustration " + illustration[i].attributes[1].nodeValue;
 
 				//if ((curSlide == 58) || (curSlide == 62)) {
-					//illustrationNr = "Illustrationen " + illustration[i - 1].attributes[1].nodeValue + " und " + illustration[i].attributes[1].nodeValue;
+				//illustrationNr = "Illustrationen " + illustration[i - 1].attributes[1].nodeValue + " und " + illustration[i].attributes[1].nodeValue;
 				//}
 
 				content += '<div class=\"bildtitel\">' + titel + '</div>';
- 				content += '<div class=\"tit\">' + rubrizierung + '</div>';
+				content += '<div class=\"tit\">' + rubrizierung + '</div>';
 				content += '<div class=\"rp\">' + uebersetzung + '</div>';
 				content += '<div class=\"bildbeschreibung\">' + beschreibung + '</div>';
 
@@ -1475,7 +1626,7 @@ function beschreibungAnzeigen(folio) {
 				beschreibung = illustration[i].getElementsByTagName('descr')[0].firstChild.nodeValue;
 				illustrationNr = "Illustration " + illustration[i].attributes[1].nodeValue;
 				content += '<div class=\"bildtitel\">' + titel + '</div>';
- 				content += '<div class=\"tit\">' + rubrizierung + '</div>';
+				content += '<div class=\"tit\">' + rubrizierung + '</div>';
 				content += '<div class=\"rp\">' + uebersetzung + '</div>';
 				content += '<div class=\"bildbeschreibung\">' + beschreibung + '</div>';
 
@@ -1483,44 +1634,44 @@ function beschreibungAnzeigen(folio) {
 		}
 	}
 
- 	content += '<div align=\"center\"><a href=\"javascript:doPrint()\"><img id=\"drucken\" src=\"' + printImgURL + '\" width=\"55\" height=\"34\" border=\"0\"></a></div><br><form name=\"form1\" action=\"\"><center><input type=\"submit\" name=\"schliessen\" value=\"Fenster schließen\" onClick=\"javascript:self.close()\" class=\"Button\"></center></form></body>'
- 	content += '</html>';
+	content += '<div align=\"center\"><a href=\"javascript:doPrint()\"><img id=\"drucken\" src=\"' + printImgURL + '\" width=\"55\" height=\"34\" border=\"0\"></a></div><br><form name=\"form1\" action=\"\"><center><input type=\"submit\" name=\"schliessen\" value=\"Fenster schließen\" onClick=\"javascript:self.close()\" class=\"Button\"></center></form></body>'
+	content += '</html>';
 	var descrHeader = '<html><head><title>' + illustrationNr + '</title><script src=\"' + jsURL + '\" type=\"text/javascript\"></script><link rel=\"stylesheet\" type=\"text/css\" href=\"' + cssURL + '\"></head><body>';
 	var breite = 360;
 	var hoehe = 600;
 	var xPos = screen.width - (breite + 30);
 	var yPos = 200;
-	var fenster = window.open("", "Bildbeschreibung", "menubar=no,toolbar=no,scrollbars=yes,locationbar=no,directories=no,resizable=yes,width="+ breite + ",height=" + hoehe +",screenX=" + xPos + ",screenY=" + yPos + ",left=" + xPos + ",top=" + yPos + ",status=no");
+	var fenster = window.open("", "Bildbeschreibung", "menubar=no,toolbar=no,scrollbars=yes,locationbar=no,directories=no,resizable=yes,width=" + breite + ",height=" + hoehe + ",screenX=" + xPos + ",screenY=" + yPos + ",left=" + xPos + ",top=" + yPos + ",status=no");
 
 	if (fenster != 0) {
 		fenster.document.open();
- 		fenster.document.write(descrHeader + content);
- 		fenster.document.close();
+		fenster.document.write(descrHeader + content);
+		fenster.document.close();
 	}
 
-	if (fenster.window != focus()) {fenster.window.focus()};
+	if (fenster.window != focus()) { fenster.window.focus() };
 }
 
 
 
 function systemWeiche() {
 
-	agt=navigator.userAgent.toLowerCase();
-	
+	agt = navigator.userAgent.toLowerCase();
+
 	if (agt.indexOf('firefox') >= 0) {
 		browser = "Firefox";
 		xmlURL = "bildverz.xml";
-	} else if (agt.indexOf('msie') >=0) {
+	} else if (agt.indexOf('msie') >= 0) {
 		browser = "MSIE";
 		xmlURL = "bildverz.xml";
-	} else if (agt.indexOf('safari') >=0) {
+	} else if (agt.indexOf('safari') >= 0) {
 		browser = "Safari";
 		xmlURL = "bildverz.xml";
 	}
 	alert(xmlURL);
-	sys=(navigator.platform)?navigator.platform.toLowerCase():agt;
+	sys = (navigator.platform) ? navigator.platform.toLowerCase() : agt;
 
-	os=((sys.indexOf('mac')>=0)?"Macintosh":(sys.indexOf('unix')>=0 || sys.indexOf('linux')>=0 || sys.indexOf('x11')>=0 || sys.indexOf('x 11')>=0)?"Linux/Unix":(sys.indexOf('os/2')>=0)?"OS/2":(sys.indexOf('win')>=0)?"Windows":"");
+	os = ((sys.indexOf('mac') >= 0) ? "Macintosh" : (sys.indexOf('unix') >= 0 || sys.indexOf('linux') >= 0 || sys.indexOf('x11') >= 0 || sys.indexOf('x 11') >= 0) ? "Linux/Unix" : (sys.indexOf('os/2') >= 0) ? "OS/2" : (sys.indexOf('win') >= 0) ? "Windows" : "");
 
 }
 
@@ -1529,9 +1680,9 @@ function systemWeiche() {
 function infoFenster(URL1) {
 	var breite = 600
 	var hoehe = 500
-	links=(screen.width-breite)/2 
-	oben=(screen.height-hoehe)/4 
-	F1=open(URL1,"","scrollbars=yes, resizable=yes, status=yes, width="+ breite+",height="+ hoehe+",top="+ oben+",screenY="+oben+",left="+ 	links+",screenX="+links)
+	links = (screen.width - breite) / 2
+	oben = (screen.height - hoehe) / 4
+	F1 = open(URL1, "", "scrollbars=yes, resizable=yes, status=yes, width=" + breite + ",height=" + hoehe + ",top=" + oben + ",screenY=" + oben + ",left=" + links + ",screenX=" + links)
 }
 
 
@@ -1539,12 +1690,12 @@ function infoFenster(URL1) {
 
 
 function grossFenster(URL2) {
-	var breite = screen.availWidth-10;
-	var hoehe = screen.availHeight-10;
-	links=0
-	oben=0 
-	F1=open(URL2,"","scrollbars=yes, resizable=yes, status=yes, width="+ breite+",height="+ hoehe+",top="+ oben+",screenY="+oben+",left="+ 	links+",screenX="+links)
-	F1.resizeTo(screen.availWidth,screen.availHeight);
+	var breite = screen.availWidth - 10;
+	var hoehe = screen.availHeight - 10;
+	links = 0
+	oben = 0
+	F1 = open(URL2, "", "scrollbars=yes, resizable=yes, status=yes, width=" + breite + ",height=" + hoehe + ",top=" + oben + ",screenY=" + oben + ",left=" + links + ",screenX=" + links)
+	F1.resizeTo(screen.availWidth, screen.availHeight);
 }
 
 
@@ -1552,12 +1703,12 @@ function grossFenster(URL2) {
 
 
 function transkriptionen(URL3) {
-	var breite = screen.availWidth-10;
-	var hoehe = screen.availHeight-10;
-	links=0
-	oben=0 
-	F1=open(URL3,"","scrollbars=yes, resizable=yes, status=yes, width="+ breite+",height="+ hoehe+",top="+ oben+",screenY="+oben+",left="+ links+",screenX="+links)
-	F1.resizeTo(screen.availWidth,screen.availHeight);
+	var breite = screen.availWidth - 10;
+	var hoehe = screen.availHeight - 10;
+	links = 0
+	oben = 0
+	F1 = open(URL3, "", "scrollbars=yes, resizable=yes, status=yes, width=" + breite + ",height=" + hoehe + ",top=" + oben + ",screenY=" + oben + ",left=" + links + ",screenX=" + links)
+	F1.resizeTo(screen.availWidth, screen.availHeight);
 }
 
 
@@ -1565,9 +1716,9 @@ function transkriptionen(URL3) {
 function initialenInfoFenster(URL4) {
 	var breite = 500
 	var hoehe = 500
-	links=(screen.width-breite)/2 
-	oben=(screen.height-hoehe)/4 
-	F1=open(URL4,"","scrollbars=yes, resizable=yes, status=yes, width="+ breite+",height="+ hoehe+",top="+ oben+",screenY="+oben+",left="+ links+",screenX="+links)
+	links = (screen.width - breite) / 2
+	oben = (screen.height - hoehe) / 4
+	F1 = open(URL4, "", "scrollbars=yes, resizable=yes, status=yes, width=" + breite + ",height=" + hoehe + ",top=" + oben + ",screenY=" + oben + ",left=" + links + ",screenX=" + links)
 }
 
 
@@ -1577,9 +1728,9 @@ function initialenInfoFenster(URL4) {
 function erlFenster(URL5) {
 	var breite = 800
 	var hoehe = 500
-	links=(screen.width-breite)/2 
-	oben=(screen.height-hoehe)/4 
-	F1=open(URL5,"","scrollbars=yes, resizable=yes, status=yes, width="+ breite+",height="+ hoehe+",top="+ oben+",screenY="+oben+",left="+ 	links+",screenX="+links)
+	links = (screen.width - breite) / 2
+	oben = (screen.height - hoehe) / 4
+	F1 = open(URL5, "", "scrollbars=yes, resizable=yes, status=yes, width=" + breite + ",height=" + hoehe + ",top=" + oben + ",screenY=" + oben + ",left=" + links + ",screenX=" + links)
 }
 
 
@@ -1587,7 +1738,7 @@ function erlFenster(URL5) {
 function doPrint() {
 	//Nicht zu druckende Elemente ausblenden.
 	for (i = 0; i < 5; i++) {
-		if (document.images[i]){
+		if (document.images[i]) {
 			window.document.images[i].style.visibility = "hidden";
 			//window.document.images[i].style.display = "none";
 		}
@@ -1607,7 +1758,7 @@ function iconsEinblenden() {
 
 	for (i = 0; i < 5; i++) {
 
-		if (document.images[i]){
+		if (document.images[i]) {
 
 			document.images[i].style.visibility = "visible";
 
@@ -1639,7 +1790,7 @@ function TasteGedrueckt(Ereignis) {
 
 			}
 
-		 	return true;
+			return true;
 
 		}
 
@@ -1655,7 +1806,7 @@ function TasteGedrueckt(Ereignis) {
 
 				return true;
 
-			} 
+			}
 
 			if (window.event.keyCode == 39) {
 

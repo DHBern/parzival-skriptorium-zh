@@ -10,11 +10,11 @@
 
 function blattInfoDS(blatt) {
 	switch(blatt) {
-		case "0": lagenNr="1"; lagenSymb="L4_w1_1_02r"; lagenName="Quaternio  – 1 Bl."; konkordanz="1.1–3.16"; aktBuch = 0; imgDescr = false; break; 
-		case "1": lagenNr="1"; lagenSymb="L4_w1_1_02v03r"; lagenName="Quaternio  – 1 Bl."; konkordanz="3.17–8.18"; aktBuch = 0; imgDescr = false; break;
-		case "2": lagenNr="1"; lagenSymb="L4_w1_1_03v04r"; lagenName="Quaternio  – 1 Bl."; konkordanz="8.19–13.20"; aktBuch = 0; imgDescr = false; break; 
-		case "3": lagenNr="1"; lagenSymb="L4_w1_1_04v05r"; lagenName="Quaternio  – 1 Bl."; konkordanz="13.21–18.22"; aktBuch = 0; imgDescr = false; break;
-		case "4": lagenNr="1"; lagenSymb="L4_w1_1_05v06r"; lagenName="Quaternio  – 1 Bl."; konkordanz="18.23–23.24"; aktBuch = 0; imgDescr = false; break; 
+		case "0": lagenNr="1"; lagenSymb="L4_w1_1_02r"; lagenName="Quaternio  – 1 Bl."; konkordanz="1.1-3.16"; aktBuch = 0; imgDescr = false; break; 
+		case "1": lagenNr="1"; lagenSymb="L4_w1_1_02v03r"; lagenName="Quaternio  – 1 Bl."; konkordanz="3.17-8.18"; aktBuch = 0; imgDescr = false; break;
+		case "2": lagenNr="1"; lagenSymb="L4_w1_1_03v04r"; lagenName="Quaternio  – 1 Bl."; konkordanz="8.19-13.20"; aktBuch = 0; imgDescr = false; break; 
+		case "3": lagenNr="1"; lagenSymb="L4_w1_1_04v05r"; lagenName="Quaternio  – 1 Bl."; konkordanz="13.21-18.22"; aktBuch = 0; imgDescr = false; break;
+		case "4": lagenNr="1"; lagenSymb="L4_w1_1_05v06r"; lagenName="Quaternio  – 1 Bl."; konkordanz="18.23-23.24"; aktBuch = 0; imgDescr = false; break; 
 		case "5": lagenNr="1"; lagenSymb="L4_w1_1_06v07r"; lagenName="Quaternio  – 1 Bl."; konkordanz="23.25-28.26"; aktBuch = 0; imgDescr = false; break;
 		case "6": lagenNr="1"; lagenSymb="L4_w1_1_07v08r"; lagenName="Quaternio  – 1 Bl."; konkordanz="28.27-33.28"; aktBuch = 0; imgDescr = false; break; 
 		case "7": lagenNr="1/2"; lagenSymb="L4_w1_L6"; lagenName="Quaternio/Sexternio"; konkordanz="33.29-38.30"; aktBuch = 0; imgDescr = false; break;
