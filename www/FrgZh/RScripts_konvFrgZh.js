@@ -309,56 +309,65 @@ function bildAnzeigeESNeu() {
 
 function bildAnzeigeDSNeu() {
 
-    const doublePage = blattInfoData.blattInfo.filter(b => b.dpSlide === dpSlide); // get the blätter of the double page
-    const blankPage = "50/transparent.png"; // for hiding other images if nothing to display
+    const doublePage = blattInfoData.blattInfo.filter(b => b.dpSlide === dpSlide);
+    const blankPage = "./50/transparent.png";
 
-    let versoPage;
-    let rectoPage;
-    let singlePage;
+    const versoPage = doublePage.find(p => p.blatt.endsWith('v'));
+    const rectoPage = doublePage.find(p => p.blatt.endsWith('r'));
 
     let seitenAngabe;
     let konkordanz;
     let schreiber;
     let lagenSym;
     let lagenText;
+    let buch;
 
-    // set all the elements in the DOM
-    if (doublePage.length === 2) {
-        versoPage = doublePage.find(p => p.blatt[p.blatt.length - 1] === 'v');
-        rectoPage = doublePage.find(p => p.blatt[p.blatt.length - 1] === 'r');
+    if (versoPage && rectoPage) {
+        // echte Doppelseite: Verso links, Recto rechts
         seitenAngabe = 'Bl. ' + versoPage.blatt + ' / ' + rectoPage.blatt;
-        konkordanz = versoPage.dpKonkordanz;
-        schreiber = versoPage.schreiber;
-        lagenSym = "../Lagensymbole/Doppelseite/" + versoPage.dpLagenSymb + ".gif";
-        lagenText = versoPage.lagenNr + '. Lage, ' + versoPage.dpLagenName;
-        buch = versoPage.aktBuch;
+        konkordanz   = versoPage.dpKonkordanz;
+        schreiber    = versoPage.schreiber;
+        lagenSym     = "../Lagensymbole/Doppelseite/" + versoPage.dpLagenSymb + ".gif";
+        lagenText    = versoPage.lagenNr + '. Lage, ' + versoPage.dpLagenName;
+        buch         = versoPage.aktBuch;
 
-    } else { // we are in double page view but there is only one page to display as there is only one
-        singlePage = doublePage[0];
-        seitenAngabe = 'Bl. ' + singlePage.blatt;
-        konkordanz = singlePage.dpKonkordanz;
-        schreiber = singlePage.schreiber;
-        lagenSym = "../Lagensymbole/Doppelseite/" + singlePage.dpLagenSymb + ".gif";
-        lagenText = singlePage.lagenNr + '. Lage, ' + singlePage.dpLagenName;
-        buch = singlePage.aktBuch;
-    }
-
-    document.getElementById('blattAnzeige').innerHTML = seitenAngabe;
-    document.getElementById('versAnzeige').innerHTML = konkordanz;
-    document.getElementById('schreibAnzeige').innerHTML = schreiber;
-    window.document.ImgLagensymbol.src = lagenSym;
-    document.getElementById('lagenAnzeige').innerHTML = lagenText;
-    document.naviHSR.selectBook.selectedIndex = buch;
-
-    if (singlePage) {
-        document.images['imgFaksimile'].src = "./50/" + singlePage.img;
-        document.images['imgFaksimilev'].src = blankPage;
-        document.images['imgFaksimiler'].src = blankPage;
-    } else {
-        document.images['imgFaksimile'].src = blankPage;
+        document.images['imgFaksimile'].src  = blankPage;
         document.images['imgFaksimilev'].src = "./50/" + versoPage.img;
         document.images['imgFaksimiler'].src = "./50/" + rectoPage.img;
+
+    } else if (rectoPage) {
+        // nur Recto vorhanden → links transparent, rechts das Blatt
+        seitenAngabe = 'Bl. ' + rectoPage.blatt;
+        konkordanz   = rectoPage.dpKonkordanz;
+        schreiber    = rectoPage.schreiber;
+        lagenSym     = "../Lagensymbole/Doppelseite/" + rectoPage.dpLagenSymb + ".gif";
+        lagenText    = rectoPage.lagenNr + '. Lage, ' + rectoPage.dpLagenName;
+        buch         = rectoPage.aktBuch;
+
+        document.images['imgFaksimile'].src  = blankPage;
+        document.images['imgFaksimilev'].src = blankPage;
+        document.images['imgFaksimiler'].src = "./50/" + rectoPage.img;
+
+    } else if (versoPage) {
+        // nur Verso vorhanden → links das Blatt, rechts transparent
+        seitenAngabe = 'Bl. ' + versoPage.blatt;
+        konkordanz   = versoPage.dpKonkordanz;
+        schreiber    = versoPage.schreiber;
+        lagenSym     = "../Lagensymbole/Doppelseite/" + versoPage.dpLagenSymb + ".gif";
+        lagenText    = versoPage.lagenNr + '. Lage, ' + versoPage.dpLagenName;
+        buch         = versoPage.aktBuch;
+
+        document.images['imgFaksimile'].src  = blankPage;
+        document.images['imgFaksimilev'].src = "./50/" + versoPage.img;
+        document.images['imgFaksimiler'].src = blankPage;
     }
+
+    document.getElementById('blattAnzeige').innerHTML  = seitenAngabe;
+    document.getElementById('versAnzeige').innerHTML   = konkordanz;
+    document.getElementById('schreibAnzeige').innerHTML = schreiber;
+    document.getElementById('lagenAnzeige').innerHTML  = lagenText;
+    window.document.ImgLagensymbol.src                 = lagenSym;
+    document.naviHSR.selectBook.selectedIndex          = buch;
 }
 
 function zoom150() {
